@@ -12,6 +12,8 @@ from jupyter_dash import JupyterDash
 from transformers import BartTokenizer, BartForConditionalGeneration
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import torch
+import _pickle as cPickle
+import bz2
 
 import joblib 
 from sklearn.model_selection import KFold, train_test_split, GridSearchCV
@@ -35,8 +37,13 @@ if device == "cuda":
 model_bart.to(device)
 model_bart.eval();
 
+def decompress_pickle(file):
+ data = bz2.BZ2File(file, 'rb')
+ data = cPickle.load(data)
+ return data
 
-model = pickle.load(open('model.pkl', 'rb'))
+
+model = decompress_pickle('/content/drive/MyDrive/Census/model_2.pbz2') 
 tfidf = joblib.load('tfidf.joblib')
 
 app =  dash.Dash(external_stylesheets = [dbc.themes.CERULEAN])
