@@ -8,10 +8,8 @@ import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
-from jupyter_dash import JupyterDash
 from transformers import BartTokenizer, BartForConditionalGeneration
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import torch
 import _pickle as cPickle
 import bz2
 
@@ -23,7 +21,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cpu"
 
 # Load Model
 pretrained = "sshleifer/distilbart-xsum-12-6"
