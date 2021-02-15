@@ -24,7 +24,6 @@ from sklearn.pipeline import Pipeline
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-print(f"Device: {device}")
 
 # Load Model
 pretrained = "sshleifer/distilbart-xsum-12-6"
@@ -34,8 +33,6 @@ tokenizer = BartTokenizer.from_pretrained(pretrained)
 # Switch to cuda, eval mode, and FP16 for faster inference
 if device == "cuda":
     model_bart = model_bart.half()
-model_bart.to(device)
-model_bart.eval();
 
 def decompress_pickle(file):
  data = bz2.BZ2File(file, 'rb')
@@ -46,7 +43,8 @@ def decompress_pickle(file):
 model = decompress_pickle('/content/drive/MyDrive/Census/model_2.pbz2') 
 tfidf = joblib.load('tfidf.joblib')
 
-app =  dash.Dash(external_stylesheets = [dbc.themes.CERULEAN])
+app =  dash.Dash(__name__, external_stylesheets = [dbc.themes.CERULEAN])
+server = app.server
 
 navbar = dbc.NavbarSimple(
     children=[
