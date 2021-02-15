@@ -38,8 +38,8 @@ def decompress_pickle(file):
  return data
 
 
-model = decompress_pickle('model_2.pbz2') 
-tfidf = joblib.load('tfidf.joblib')
+model = decompress_pickle('/model/model_2.pbz2') 
+tfidf = joblib.load('/model/tfidf.joblib')
 
 server = flask.Flask(__name__)
 server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
