@@ -39,8 +39,7 @@ model_bart.eval();
 model = pickle.load(open('model.pkl', 'rb'))
 tfidf = joblib.load('tfidf.joblib')
 
-app = JupyterDash(__name__, external_stylesheets = [dbc.themes.CERULEAN])
-server = app.server
+app =  dash.Dash(external_stylesheets = [dbc.themes.CERULEAN])
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -309,3 +308,7 @@ def summarize(n_clicks, max_length, min_length, num_beams, original_text):
     return out[0], time_taken
 
 app.run_server(mode='external', debug = False)
+
+
+if __name__ == '__main__':
+    app.run_server()
