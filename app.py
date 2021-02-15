@@ -1,6 +1,9 @@
 import os
 import time
 import pandas as pd
+import flask
+from random import randint
+
 import re
 import pickle
 import dash
@@ -38,8 +41,9 @@ def decompress_pickle(file):
 model = decompress_pickle('model_2.pbz2') 
 tfidf = joblib.load('tfidf.joblib')
 
-app =  dash.Dash(__name__, external_stylesheets = [dbc.themes.CERULEAN])
-server = app.server
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+app = dash.Dash(__name__, server=server,  external_stylesheets = [dbc.themes.CERULEAN])
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -309,4 +313,4 @@ def summarize(n_clicks, max_length, min_length, num_beams, original_text):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.server.run(debug=True, threaded=True)
