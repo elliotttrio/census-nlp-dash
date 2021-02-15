@@ -40,7 +40,7 @@ def decompress_pickle(file):
  return data
 
 
-model = decompress_pickle('/content/drive/MyDrive/Census/model_2.pbz2') 
+model = decompress_pickle('model_2.pbz2') 
 tfidf = joblib.load('tfidf.joblib')
 
 app =  dash.Dash(__name__, external_stylesheets = [dbc.themes.CERULEAN])
