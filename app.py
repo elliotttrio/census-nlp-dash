@@ -28,9 +28,6 @@ pretrained = "sshleifer/distilbart-xsum-12-6"
 model_bart = BartForConditionalGeneration.from_pretrained(pretrained)
 tokenizer = BartTokenizer.from_pretrained(pretrained)
 
-# Switch to cuda, eval mode, and FP16 for faster inference
-if device == "cuda":
-    model_bart = model_bart.half()
 
 def decompress_pickle(file):
  data = bz2.BZ2File(file, 'rb')
@@ -309,8 +306,6 @@ def summarize(n_clicks, max_length, min_length, num_beams, original_text):
     time_taken = f"Summarized on {device} in {t1-t0:.2f}s"
 
     return out[0], time_taken
-
-app.run_server(mode='external', debug = False)
 
 
 if __name__ == '__main__':
