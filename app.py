@@ -23,6 +23,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+app = dash.Dash(__name__, server=server,  external_stylesheets = [dbc.themes.CERULEAN])
+
 
 device = "cpu"
 
@@ -40,10 +44,6 @@ def decompress_pickle(file):
 
 model = decompress_pickle('/model/model_2.pbz2') 
 tfidf = joblib.load('/model/tfidf.joblib')
-
-server = flask.Flask(__name__)
-server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
-app = dash.Dash(__name__, server=server,  external_stylesheets = [dbc.themes.CERULEAN])
 
 navbar = dbc.NavbarSimple(
     children=[
