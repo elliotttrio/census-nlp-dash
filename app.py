@@ -15,6 +15,7 @@ from transformers import BartTokenizer, BartForConditionalGeneration
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import _pickle as cPickle
 import bz2
+import torch
 
 import joblib 
 from sklearn.model_selection import KFold, train_test_split, GridSearchCV
